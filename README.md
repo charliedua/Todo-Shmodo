@@ -1,12 +1,8 @@
 # Todo Shmoodo
 
-
 ## A handy to-do app
 
 Made by: - Anmol Dua
-
-Presentation slides on next page.
-
 
 # Vision
 
