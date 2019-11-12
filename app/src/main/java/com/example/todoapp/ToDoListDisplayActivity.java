@@ -5,8 +5,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +36,7 @@ public class ToDoListDisplayActivity extends AppCompatActivity
     private Button add_btn;
     private EditText et_add_list_item_name;
     private CheckBox cb_add_list_Item;
+    private String currTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +55,8 @@ public class ToDoListDisplayActivity extends AppCompatActivity
                 new ArrayList<ToDoItem>(),
                 list.getID()
         ));
+
+        currTitle = list.getName();
 
         add_btn = findViewById(R.id.btn_add_list_add_item);
         et_add_list_item_name = findViewById(R.id.et_add_list_item_name);
@@ -94,7 +99,7 @@ public class ToDoListDisplayActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-
+                Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -115,9 +120,15 @@ public class ToDoListDisplayActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onPostCreate(savedInstanceState);
+        getSupportActionBar().setTitle(currTitle);
+    }
+
     public void AddItem(ToDoItem item)
     {
-        //list.add(item);
         int length = ((RecyclerViewItemAdaptor) rv_todo_items.getAdapter()).AddList(item);
         rv_todo_items.getAdapter().notifyItemInserted(length - 1);
     }

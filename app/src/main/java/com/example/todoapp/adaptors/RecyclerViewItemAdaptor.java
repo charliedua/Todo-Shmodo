@@ -28,19 +28,13 @@ public class RecyclerViewItemAdaptor extends RecyclerView.Adapter<RecyclerViewIt
     private final DatabaseReference database;
     private final String listID;
     private ArrayList<ToDoItem> Items;
-
-    public void setItems(ArrayList<ToDoItem> items)
-    {
-        Items = items;
-    }
-
     private LayoutInflater inflater;
 
     public RecyclerViewItemAdaptor(
             Context context,
             ArrayList<ToDoItem> items,
             String listID
-                                  )
+        )
     {
         Items = items == null ? new ArrayList<ToDoItem>() : items;
         this.inflater = LayoutInflater.from(context);
@@ -56,7 +50,7 @@ public class RecyclerViewItemAdaptor extends RecyclerView.Adapter<RecyclerViewIt
         else
         {
             database = null;
-            Intent i = new Intent(context,MainActivity.class);
+            Intent i = new Intent(context, MainActivity.class);
             context.startActivity(i);
         }
     }
@@ -64,6 +58,11 @@ public class RecyclerViewItemAdaptor extends RecyclerView.Adapter<RecyclerViewIt
     public ArrayList<ToDoItem> getItems()
     {
         return Items;
+    }
+
+    public void setItems(ArrayList<ToDoItem> items)
+    {
+        Items = items;
     }
 
     @Override
@@ -127,7 +126,12 @@ public class RecyclerViewItemAdaptor extends RecyclerView.Adapter<RecyclerViewIt
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b)
                 {
-                    database.child(listID).child("Items").child(String.valueOf(position)).child("Checked").setValue(b);
+                    item.setChecked(b);
+                    database.child(listID)
+                            .child("Items")
+                            .child(String.valueOf(position))
+                            .child("Checked")
+                            .setValue(b);
                 }
             });
         }

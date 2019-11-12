@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,8 +16,6 @@ import com.example.todoapp.adaptors.RecyclerViewItemAdaptor;
 import com.example.todoapp.models.ToDoItem;
 import com.example.todoapp.models.ToDoList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
 
 public class AddListFormActivity extends AppCompatActivity
 {
@@ -36,9 +33,12 @@ public class AddListFormActivity extends AppCompatActivity
             if (validate())
             {
                 List.getItems()
-                        .add(new ToDoItem(et_add_list_item_name.getText().toString(),
-                                          cb_add_list_Item.isChecked()
-                        ));
+                        .add(
+                                new ToDoItem(
+                                        et_add_list_item_name.getText().toString(),
+                                        cb_add_list_Item.isChecked()
+                                )
+                            );
                 rv_add_list.getAdapter().notifyItemInserted(List.getItems().size() - 1);
             }
         }
@@ -48,6 +48,7 @@ public class AddListFormActivity extends AppCompatActivity
     {
         public void onClick(View view)
         {
+
             if (validate())
             {
                 Intent returnIntent = new Intent();

@@ -37,7 +37,7 @@ public class ToDoItem implements Parcelable
     public ToDoItem(Parcel in)
     {
         name = in.readString();
-        checked = in.readBoolean();
+        checked = in.readInt() == 1;
     }
 
     public String getName()
@@ -60,8 +60,7 @@ public class ToDoItem implements Parcelable
     public void writeToParcel(Parcel parcel, int i)
     {
         parcel.writeString(name);
-        parcel.writeBoolean(checked);
-
+        parcel.writeInt(checked ? 1 : 0);
     }
 
     public Boolean getChecked()
